@@ -1,38 +1,236 @@
-.App {
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap");
+
+* {
+  font-family: "Montserrat", sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #eee;
+}
+
+.header {
+  width: 100%;
+  background: white;
+  height: 75px;
+  padding: 20px;
+}
+
+.header-logo {
+  margin-left: 80px;
+  text-decoration: overline 1px;
+}
+
+.header-logo-img {
+  height: 80px;
+}
+
+.wrapper {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.header-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.header-list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style-type: none;
+}
+
+.header-list:last-child {
+  margin-left: 0;
+}
+
+.header-item {
+  margin-right: 30px;
+  font-size: 20px;
+}
+
+.header-item:last-child {
+  padding-right: 10px;
+  position: relative;
+}
+
+.cart-number {
+  background-color: #f91155;
+  border-radius: 8px;
+  color: #fff;
+  height: 15px;
+  line-height: 15px;
+  padding: 0 6px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 12px;
+}
+
+.header-link {
+  color: black;
+  text-decoration: none;
+}
+
+.intro {
+  height: 100vh;
+  background: url(./img/background.jpg) no-repeat center;
+  background-size: cover;
+  padding-top: 240px;
+  padding-left: 250px;
+}
+
+.intro-title {
+  max-width: 1100px;
+  color: white;
+  font-size: 56px;
+}
+
+.intro-subtitle {
+  max-width: 750px;
+  color: white;
+  font-size: 18px;
+  text-align: center;
+  padding: 0 10px;
+}
+.main {
+  /* background-color: rgba(203, 212, 214, 0.7); */
+}
+.offer {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.offer-title {
+  font-size: 36px;
+  color: #285a43;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.products-list {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 1000px;
+  margin: 0 auto;
+  justify-content: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.product-item {
+  margin: 10px;
+}
+
+.product-image {
+  height: 250px;
+  width: 250px;
+  border-radius: 5px;
+}
+
+.price-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product-wrapper {
+  padding-top: 10px;
+  padding-left: 10px;
+  font-size: 20px;
+  color: #285a43;
+}
+.product-name {
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  color: white;
+  background: url(./img/footer_background.png) no-repeat center;
+  background-size: cover;
+}
+.footer-title {
+  margin-bottom: 10px;
+}
+
+.footer-contacts-list {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.flower-page-img {
+  width: 450px;
+  height: 450px;
+  border-radius: 3px;
+}
+
+.container-fix {
+  background-color: white;
+  margin-top: 10px;
+  padding: 20px;
+  border-radius: 3px;
+}
+
+.flower-page-price {
+  font-size: 24px;
+  padding-left: 5px;
+}
+
+.cart-page-img {
+  width: 120px;
+  height: 120px;
+}
+.cart-page-p {
+  font-size: 30px;
+}
+
+.cart-page-price {
+  font-size: 24px;
+}
+
+.cart-page-btn {
+  background: #eee;
+}
+
+.width-help {
+  width: 15px;
+  text-align: center;
+}
+
+@keyframes showBackdrop {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.modal {
   display: flex;
-  flex-direction: column;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  opacity: 1;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  pointer-events: all;
+  overflow: hidden;
+  animation: showBackdrop 0.3s ease-out;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.modal-content {
+  background-color: #fff;
+  margin: 100px auto;
+  padding: 20px;
+  width: 60%;
 }
