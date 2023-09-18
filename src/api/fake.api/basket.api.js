@@ -1,4 +1,4 @@
-const basket = [
+let basket = [
   //   {
   //     _id: "1",
   //     name: "Фрезия",
@@ -22,8 +22,15 @@ const addItem = (data) => {
   basket.push({ ...data });
 };
 
+const removeItem = (id) => {
+  console.log(id);
+  basket = basket.filter((item) => item._id !== id);
+  return basket;
+};
+
 export default {
   fetchAll,
   getLength,
-  addItem
+  addItem,
+  removeItem
 };

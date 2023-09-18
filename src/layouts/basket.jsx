@@ -1,13 +1,20 @@
 import React from "react";
 import ItemBasket from "../components/itemBasket";
 import { useBasket } from "../hooks/useBasket";
+import Loader from "../components/loader";
 
 const Basket = () => {
-  const { cartList } = useBasket();
+  const { cartList, removeItem, basketLength } = useBasket();
 
+  const handleDelete = (_id) => {
+    console.log(_id);
+    removeItem(_id);
+  };
+
+  if (cartList.length !== basketLength) return <Loader />;
   return (
-    <div className="wrapper">
-      <h1>Корзина</h1>
+    <div className="wrapper-fix">
+      <h1 className="mt-3">Корзина</h1>
 
       {cartList.length !== 0 &&
         cartList.map((item) => (
@@ -18,6 +25,7 @@ const Basket = () => {
             price={item.price}
             img={item.img}
             amount={item.amount}
+            onDelete={handleDelete}
           />
         ))}
 

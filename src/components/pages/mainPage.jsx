@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import FlowerCard from "../flowerCard";
 import api from "../../api";
+import { generateRandomId } from "../../utils/generateRandomId";
+import Loader from "../loader";
 
 const MainPage = () => {
   const [items, setItems] = useState([]);
 
   useEffect(() => {
-    api.items.fetchAll().then((data) => setItems(data));
+    api.items.fetchAll().then((data) => {
+      setItems(generateRandomId(data));
+    });
   }, []);
 
   return (
@@ -24,33 +28,30 @@ const MainPage = () => {
 
       <section className="offer">
         <div className="offer-title">Что мы можем предложить:</div>
-        <div className="products-list">
-          {items.length === 0 && (
-            <div class="spinner-border" role="status">
-              <span class="sr-only" />
-            </div>
-          )}
+        <div className="products-list d-flex justify-content-center">
+          {items.length === 0 && <Loader />}
 
-          {items.map((item) => (
-            <FlowerCard
-              name={item.name}
-              price={item.price}
-              img={item.img}
-              id={item._id}
-            />
-          ))}
+          {items.length > 0 &&
+            items.map((item) => (
+              <FlowerCard
+                name={item.name}
+                price={item.price}
+                img={item.img}
+                id={item._id}
+              />
+            ))}
         </div>
       </section>
 
       <section className="footer">
         <div className="footer-info">
           <div className="footer-title">
-            <h2>Feel free to contact us:</h2>
+            <h2>Мы всегда открыты для обратной связи:</h2>
           </div>
           <div className="footer-contacts-list">
-            <div className=".footer-contacts-item">instagram</div>
-            <div className=".footer-contacts-item">vkontakte</div>
-            <div className=".footer-contacts-item">telegram</div>
+            <div className="me-3">instagram</div>
+            <div className="me-3">vkontakte</div>
+            <div className="me-3">telegram</div>
           </div>
         </div>
       </section>

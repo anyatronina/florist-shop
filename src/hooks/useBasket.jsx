@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import api from "../api";
+import Loader from "../components/loader";
 
 const BasketContext = React.createContext();
 
@@ -59,19 +60,26 @@ const BasketProvider = ({ children }) => {
     }
   }
 
+  function removeItem(_id) {
+    api.basket.removeItem(_id);
+    api.basket.fetchAll().then((data) => setList(data));
+    setLength(api.basket.getLength());
+  }
+
   return (
     <BasketContext.Provider
       value={{
         cartList,
         basketLength,
         addItem,
+        removeItem,
         sumBasket,
         // handleIncrement,
         // handleDecrement,
         updateSum
       }}
     >
-      {!isLoading ? children : "Loading..."}
+      {!isLoading ? children : <Loader />}
     </BasketContext.Provider>
   );
 };

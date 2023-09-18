@@ -3,6 +3,7 @@ import api from "../../api";
 import Counter from "../counter";
 import { useModal } from "../../hooks/useModal";
 import { useBasket } from "../../hooks/useBasket";
+import Loader from "../loader";
 
 const FlowerPage = ({ itemId }) => {
   const [item, setItem] = useState();
@@ -41,22 +42,16 @@ const FlowerPage = ({ itemId }) => {
             <h3 className="flower-page-price">{price} ₽</h3>
             <Counter amount={amount} />
             <button className="btn btn-dark me-2" onClick={handleSubmit}>
-              Купить
+              В корзину
             </button>
-            <button className="btn btn-dark">В избранное</button>
+            <button className="btn btn-dark">Избранное</button>
           </div>
         </div>
       </div>
     );
   }
 
-  return (
-    <div class="d-flex justify-content-center m-3">
-      <div class="spinner-border" role="status">
-        <span class="sr-only" />
-      </div>
-    </div>
-  );
+  return <Loader />;
 };
 
 export default FlowerPage;

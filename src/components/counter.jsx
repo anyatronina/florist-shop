@@ -28,7 +28,12 @@ const Counter = ({ amount }) => {
 
   return (
     <div className="d-flex mb-2">
-      <button className="btn cart-page-btn" onClick={handleDecrement}>
+      <button
+        className={
+          sum === 1 ? "btn cart-page-btn disabled" : "btn cart-page-btn"
+        }
+        onClick={handleDecrement}
+      >
         -
       </button>
       <p className="my-2 mx-3 width-help">{sum}</p>

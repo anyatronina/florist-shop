@@ -9,24 +9,35 @@ import MainPage from "./components/pages/mainPage";
 import Basket from "./layouts/basket";
 import BasketProvider from "./hooks/useBasket";
 import ModalProvider from "./hooks/useModal";
+import Favorites from "./layouts/favorites";
+import AppLoader from "./components/hoc/appLoader";
+import Login from "./layouts/login";
+import LogOut from "./layouts/logOut";
+import PersonalAccount from "./components/pages/personalAccount";
 
 function App() {
   return (
-    <>
-      <BasketProvider>
-        <ModalProvider>
-          <NavBar />
-          <Switch>
-            <Route path="/catalog/:itemId?" component={Catalog} />
-            <Route path="/delivery" component={Delivery} />
-            <Route path="/about" component={About} />
-            <Route path="/cart" component={Basket} />
-            <Route path="/" exact component={MainPage} />
-            <Redirect to="/" />
-          </Switch>
-        </ModalProvider>
-      </BasketProvider>
-    </>
+    <div>
+      <AppLoader>
+        <BasketProvider>
+          <ModalProvider>
+            <NavBar />
+            <Switch>
+              <Route path="/users/:userId?" component={PersonalAccount} />
+              <Route path="/catalog/:itemId?" component={Catalog} />
+              <Route path="/delivery" component={Delivery} />
+              <Route path="/about" component={About} />
+              <Route path="/cart" component={Basket} />
+              <Route path="/favorites" component={Favorites} />
+              <Route path="/login" component={Login} />
+              <Route path="/logout" component={LogOut} />
+              <Route path="/" exact component={MainPage} />
+              <Redirect to="/" />
+            </Switch>
+          </ModalProvider>
+        </BasketProvider>
+      </AppLoader>
+    </div>
   );
 }
 

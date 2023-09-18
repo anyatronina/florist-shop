@@ -1,8 +1,8 @@
 import React from "react";
-import Counter from "./counter";
+// import { useBasket } from "../hooks/useBasket";
 // import { useBasket } from "../hooks/useBasket";
 
-const ItemBasket = ({ _id, name, price, img, amount }) => {
+const ItemBasket = ({ id, name, price, img, amount, onDelete }) => {
   // const [sum, setSum] = useState(amount);
 
   // useEffect(() => {
@@ -30,11 +30,15 @@ const ItemBasket = ({ _id, name, price, img, amount }) => {
         <p className="cart-page-p">{name}</p>
       </div>
       <div className="d-flex align-items-center">
-        <div className="my-2 me-5">
-          <Counter amount={amount} />
-        </div>
+        <p className="my-2 me-5 cart-page-price">{amount} шт.</p>
+
         <p className="my-2 me-5 cart-page-price">{price} ₽</p>
-        <button className="btn btn-outline-secondary">Удалить</button>
+        <button
+          className="btn btn-outline-secondary"
+          onClick={() => onDelete(id)}
+        >
+          Удалить
+        </button>
       </div>
     </div>
   );
