@@ -4,8 +4,7 @@ import FlowerPage from "../components/pages/flowerPage";
 import CatalogListPage from "../components/pages/catalogListPage";
 
 const Catalog = () => {
-  const params = useParams();
-  const { itemId } = params;
+  const { itemId } = useParams();
 
   return <>{itemId ? <FlowerPage itemId={itemId} /> : <CatalogListPage />}</>;
 };

@@ -24,6 +24,13 @@ const userService = {
       payload
     );
     return data;
+  },
+  updateBasket: async (payload) => {
+    const { data } = await httpService.patch(
+      userEndPoint + payload._id + "/basket",
+      payload.basket
+    );
+    return data;
   }
 };
 

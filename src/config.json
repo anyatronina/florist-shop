@@ -1,4 +1,4 @@
 {
-  "apiEndPoint": "https://florist-shop-firebase-default-rtdb.europe-west1.firebasedatabase.app/",
-  "isFirebase": true
+  "apiEndPoint": "https://localhost:8080/api/",
+  "isFirebase": false
 }

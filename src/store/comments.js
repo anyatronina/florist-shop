@@ -43,10 +43,10 @@ const {
   commentCreated
 } = actions;
 
-export const loadCommentsList = (userId) => async (dispatch) => {
+export const loadCommentsList = (itemId) => async (dispatch) => {
   dispatch(commentsRequested());
   try {
-    const { content } = await commentService.getComments(userId);
+    const { content } = await commentService.getComments(itemId);
     dispatch(commentsReceived(content));
   } catch (error) {
     dispatch(commentsRequestFailed(error.message));
@@ -54,11 +54,11 @@ export const loadCommentsList = (userId) => async (dispatch) => {
 };
 
 export const createComment =
-  (data, userId, currentUserId) => async (dispatch) => {
+  (data, itemId, currentUserId) => async (dispatch) => {
     const comment = {
       ...data,
       _id: nanoid(),
-      pageId: userId,
+      pageId: itemId,
       created_at: Date.now(),
       userId: currentUserId
     };

@@ -2,7 +2,7 @@ import React from "react";
 // import { useBasket } from "../hooks/useBasket";
 // import { useBasket } from "../hooks/useBasket";
 
-const ItemBasket = ({ id, name, price, img, amount, onDelete }) => {
+const ItemBasket = ({ idBasket, name, price, img, amount, onDelete }) => {
   // const [sum, setSum] = useState(amount);
 
   // useEffect(() => {
@@ -35,7 +35,7 @@ const ItemBasket = ({ id, name, price, img, amount, onDelete }) => {
         <p className="my-2 me-5 cart-page-price">{price} ₽</p>
         <button
           className="btn btn-outline-secondary"
-          onClick={() => onDelete(id)}
+          onClick={() => onDelete(idBasket)}
         >
           Удалить
         </button>

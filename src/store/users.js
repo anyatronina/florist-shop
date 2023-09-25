@@ -2,7 +2,6 @@ import { createAction, createSlice } from "@reduxjs/toolkit";
 import userService from "../services/user.service";
 import authService from "../services/auth.service";
 import localStorageService from "../services/localStorage.service";
-// import getRandomInt from "../utils/getRandomInt";
 import history from "../utils/history";
 import { generateAuthError } from "../utils/generateAuthError";
 
@@ -56,6 +55,13 @@ const usersSlice = createSlice({
     userUpdated: (state, action) => {
       state.entities = state.entities.map((u) =>
         u._id === action.payload._id ? { ...u, ...action.payload } : { ...u }
+      );
+    },
+    userBasketUpdated: (state, action) => {
+      state.entities = state.entities.map((u) =>
+        u._id === action.payload._id
+          ? { ...u, basket: { ...u.basket, ...action.payload.basket } }
+          : { ...u }
       );
     },
     userLoggedOut: (state) => {
@@ -121,13 +127,12 @@ export const signUp =
           email,
           phone: "не указан",
           address: "не указан",
-          // rate: getRandomInt(1, 5),
-          // completedMeetings: getRandomInt(0, 200),
           image: `https://avatars.dicebear.com/api/avataaars/${(
             Math.random() + 1
           )
             .toString(36)
             .substring(7)}.svg`,
+          basket: [],
           ...rest
         })
       );
@@ -148,8 +153,6 @@ export const updateUserData =
     try {
       const { content } = await userService.update(payload);
       dispatch(userUpdated(content));
-      // dispatch(loadUsersList());
-      // history.push(redirect);
     } catch (error) {
       dispatch(createUserFailed(error.message));
     }
@@ -178,12 +181,27 @@ export const loadUsersList = () => async (dispatch) => {
   }
 };
 
+export const updateUserBasket = (payload) => async (dispatch) => {
+  try {
+    const { content } = await userService.updateBasket(payload);
+    dispatch(userUpdated(content));
+  } catch (error) {
+    dispatch(usersRequestFailed(error.message));
+  }
+};
+
 export const getUsersList = () => (state) => state.users.entities;
 
 export const getCurrentUserData = () => (state) => {
   return state.users.entities
     ? state.users.entities.find((u) => u._id === state.users.auth.userId)
     : null;
+};
+
+export const getUserBasket = (userId) => (state) => {
+  if (state.users.entities) {
+    return state.users.entities.find((u) => u._id === userId).basket;
+  }
 };
 
 export const getUserById = (userId) => (state) => {

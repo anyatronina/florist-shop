@@ -6,12 +6,18 @@ import Loader from "../components/loader";
 const Basket = () => {
   const { cartList, removeItem, basketLength } = useBasket();
 
-  const handleDelete = (_id) => {
-    console.log(_id);
-    removeItem(_id);
+  const handleDelete = (idBasket) => {
+    removeItem(idBasket);
   };
 
-  if (cartList.length !== basketLength) return <Loader />;
+  if (cartList.length !== basketLength)
+    return (
+      <div className="wrapper-fix">
+        <h1 className="mt-3">Корзина</h1>
+        <Loader />;
+      </div>
+    );
+
   return (
     <div className="wrapper-fix">
       <h1 className="mt-3">Корзина</h1>
@@ -19,7 +25,8 @@ const Basket = () => {
       {cartList.length !== 0 &&
         cartList.map((item) => (
           <ItemBasket
-            key={item._id}
+            key={item.idBasket}
+            idBasket={item.idBasket}
             id={item._id}
             name={item.name}
             price={item.price}
@@ -34,10 +41,6 @@ const Basket = () => {
           В корзине пока пусто
         </div>
       )}
-
-      {/* <ItemBasket />
-      <ItemBasket />
-      <ItemBasket /> */}
     </div>
   );
 };

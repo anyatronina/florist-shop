@@ -24,45 +24,39 @@ const BasketProvider = ({ children }) => {
     setSum(sum);
   };
 
-  // const handleIncrement = () => {
-  //   setSum((prevState) => ++prevState);
-  // };
+  // function addItem({ amount, _id, ...data }) {
+  //   if (basketLength) {
+  //     let isAdded = false;
 
-  // const handleDecrement = () => {
-  //   if (sumBasket !== 1) {
-  //     setSum((prevState) => --prevState);
+  //     setList(
+  //       cartList.map((item) => {
+  //         if (item._id === _id) {
+  //           isAdded = true;
+  //           return { ...item, amount: item.amount + amount };
+  //         }
+  //         return { ...item };
+  //       })
+  //     );
+
+  //     if (!isAdded) {
+  //       api.basket.addItem({ amount, _id, ...data });
+  //       api.basket.fetchAll().then((data) => setList(data));
+  //       setLength(api.basket.getLength());
+  //     }
+  //   } else {
+  //     api.basket.addItem({ amount, _id, ...data });
+  //     api.basket.fetchAll().then((data) => setList(data));
+  //     setLength(api.basket.getLength());
   //   }
-  // };
+  // }
 
-  function addItem({ amount, _id, ...data }) {
-    if (basketLength) {
-      let isAdded = false;
-
-      setList(
-        cartList.map((item) => {
-          if (item._id === _id) {
-            isAdded = true;
-            return { ...item, amount: item.amount + amount };
-          }
-          return { ...item };
-        })
-      );
-
-      if (!isAdded) {
-        api.basket.addItem({ amount, _id, ...data });
-        api.basket.fetchAll().then((data) => setList(data));
-        setLength(api.basket.getLength());
-      }
-    } else {
-      api.basket.addItem({ amount, _id, ...data });
-      api.basket.fetchAll().then((data) => setList(data));
-      setLength(api.basket.getLength());
-    }
+  function addItem({ idBasket, amount, _id, ...data }) {
+    api.basket.addItem({ idBasket, amount, _id, ...data });
+    setLength(cartList.length);
   }
 
-  function removeItem(_id) {
-    api.basket.removeItem(_id);
-    api.basket.fetchAll().then((data) => setList(data));
+  function removeItem(idBasket) {
+    setList(api.basket.removeItem(idBasket));
     setLength(api.basket.getLength());
   }
 
@@ -74,8 +68,6 @@ const BasketProvider = ({ children }) => {
         addItem,
         removeItem,
         sumBasket,
-        // handleIncrement,
-        // handleDecrement,
         updateSum
       }}
     >

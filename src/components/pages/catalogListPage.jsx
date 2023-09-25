@@ -8,31 +8,35 @@ import SearchLine from "../searchline";
 import Loader from "../loader";
 import SliderPrice from "../sliderPrice";
 import GroupList from "../groupList";
+import Sorting from "../sorting";
+import { sort } from "../../utils/sortBy";
+import { useSelector } from "react-redux";
+import { getItems, getItemsLoadingStatus } from "../../store/items";
 
 const CatalogListPage = () => {
-  const [items, setItems] = useState([]);
+  const items = useSelector(getItems());
+  const itemsLoading = useSelector(getItemsLoadingStatus());
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 9;
   const [searchString, setSearchString] = useState("");
-  const [priceSlider, setPrice] = useState([]);
+  const [priceSlider, setPriceSlider] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState();
-
-  const itemsFilter = [
-    { _id: "1", name: "Цветы поштучно" },
-    { _id: "2", name: "Букеты в бумаге" },
-    { _id: "3", name: "Букеты в коробке" }
-  ];
+  const [sortBy, setSortBy] = useState({ iter: "name", order: "asc" });
 
   const handleSearchItem = ({ target }) => {
     setSearchString(target.value);
   };
 
   const handlePriceSlider = (value) => {
-    setPrice((prevState) => (prevState = value));
+    setPriceSlider(value);
   };
 
   const handlePageChange = (pageIndex) => {
     setCurrentPage(pageIndex);
+  };
+
+  const handleChange = (target) => {
+    setSortBy(sort(target));
   };
 
   const handleFilterSelect = (item) => {
@@ -47,18 +51,16 @@ const CatalogListPage = () => {
         parseInt(item.price) <= priceSlider[1]
     );
 
-    const filteredByPrice = ArrIsLoaded.length === 0 ? items : ArrIsLoaded;
+    const filtered = ArrIsLoaded.length === 0 ? items : ArrIsLoaded;
+    if (selectedFilter)
+      return filtered.filter((item) => item.category === selectedFilter._id);
     if (searchString.trim() !== "") {
-      return filteredByPrice.filter((item) =>
+      return filtered.filter((item) =>
         item.name.toLowerCase().includes(searchString.toLowerCase().trim())
       );
     }
-    return filteredByPrice;
+    return filtered;
   };
-
-  useEffect(() => {
-    api.items.fetchAll().then((data) => setItems(data));
-  }, []);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -73,18 +75,19 @@ const CatalogListPage = () => {
     }
   }, [items, searchString, priceSlider]);
 
-  if (items.length > 0) {
-    const price = items.map((item) => parseInt(item.price));
-
+  if (!itemsLoading) {
+    const price = items.map((item) => item.price);
     const filteredItems = getFilteredItems(searchString);
 
     const count = filteredItems.length;
-    const sortedItems = _.orderBy(filteredItems, "name");
+    const sortedItems = _.orderBy(filteredItems, sortBy.iter, sortBy.order);
     const userCrop = paginate(sortedItems, currentPage, pageSize);
 
     const clearFilter = () => {
+      setCurrentPage(1);
       setSearchString("");
       setSelectedFilter();
+      setPriceSlider([]);
     };
 
     return (
@@ -94,23 +97,25 @@ const CatalogListPage = () => {
             value={searchString}
             onChange={handleSearchItem}
           ></SearchLine>
+          <Sorting onChange={handleChange} />
+          <SliderPrice
+            price={price}
+            priceSlider={priceSlider}
+            onChange={handlePriceSlider}
+          />
+          <GroupList
+            selectedItem={selectedFilter}
+            onItemSelect={handleFilterSelect}
+          />
 
-          <SliderPrice price={price} onChange={handlePriceSlider} />
-          <div className="container-fix">
-            <GroupList
-              items={itemsFilter}
-              selectedItem={selectedFilter}
-              onItemSelect={handleFilterSelect}
-            />
-            <button className="btn btn-secondary mt-2" onClick={clearFilter}>
-              Очистить
-            </button>
-          </div>
+          <button className="btn btn-secondary w-50 mt-2" onClick={clearFilter}>
+            Очистить
+          </button>
         </div>
 
         <div className="container-fix col-9 ps-4">
           <div className="d-flex flex-wrap justify-content-flex-start">
-            {items.length > 0 &&
+            {!itemsLoading &&
               userCrop.map((item) => (
                 <FlowerCard
                   key={item._id}

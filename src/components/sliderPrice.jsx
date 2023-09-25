@@ -1,11 +1,10 @@
 import _ from "lodash";
 import Slider from "rc-slider";
 import "rc-slider/assets/index.css";
-import { useState } from "react";
 
-const SliderPrice = ({ price, onChange }) => {
+const SliderPrice = ({ price, priceSlider, onChange }) => {
   const value = [_.min(price), _.max(price)];
-  const [valueSlider, setValueSlider] = useState(value);
+  const IsNullValue = priceSlider.length === 0 ? value : priceSlider;
 
   return (
     <div className="container-fix">
@@ -14,16 +13,16 @@ const SliderPrice = ({ price, onChange }) => {
         range
         min={value[0]}
         max={value[1]}
+        value={IsNullValue}
         defaultValue={value}
         allowCross={false}
         onChange={(val) => {
-          setValueSlider(val);
           onChange(val);
         }}
       />
       <div className="mt-2 d-flex justify-content-evenly align-items-center user-select-none text-center">
-        <div className="searchline w-25">{valueSlider[0]} ₽</div>—
-        <div className="searchline w-25">{valueSlider[1]} ₽</div>
+        <div className="searchline w-25">{priceSlider[0] || value[0]} ₽</div>—
+        <div className="searchline w-25">{priceSlider[1] || value[1]} ₽</div>
       </div>
     </div>
   );

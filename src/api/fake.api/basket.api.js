@@ -22,9 +22,8 @@ const addItem = (data) => {
   basket.push({ ...data });
 };
 
-const removeItem = (id) => {
-  console.log(id);
-  basket = basket.filter((item) => item._id !== id);
+const removeItem = (idBasket) => {
+  basket = basket.filter((item) => item.idBasket !== idBasket);
   return basket;
 };
 

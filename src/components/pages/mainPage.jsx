@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import FlowerCard from "../flowerCard";
-import api from "../../api";
 import { generateRandomId } from "../../utils/generateRandomId";
 import Loader from "../loader";
+import { useSelector } from "react-redux";
+import { getItems, loadItemsList } from "../../store/items";
 
 const MainPage = () => {
-  const [items, setItems] = useState([]);
-
-  useEffect(() => {
-    api.items.fetchAll().then((data) => {
-      setItems(generateRandomId(data));
-    });
-  }, []);
+  const items = useSelector(getItems());
+  const itemsLoading = useSelector(loadItemsList());
 
   return (
     <main className="main">
@@ -29,9 +25,9 @@ const MainPage = () => {
       <section className="offer">
         <div className="offer-title">Что мы можем предложить:</div>
         <div className="products-list d-flex justify-content-center">
-          {items.length === 0 && <Loader />}
+          {itemsLoading && <Loader />}
 
-          {items.length > 0 &&
+          {!itemsLoading &&
             items.map((item) => (
               <FlowerCard
                 name={item.name}
