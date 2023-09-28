@@ -1,5 +1,12 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300&display=swap");
 
+@media screen and (width < 1350px) {
+  .media-column {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 * {
   font-family: "Montserrat", sans-serif;
   margin: 0;
@@ -9,6 +16,7 @@
 
 body {
   background-color: #eee;
+  min-width: 90rem;
 }
 
 .header {
@@ -84,25 +92,24 @@ body {
 }
 
 .intro {
-  height: 90vh;
+  min-height: 40rem;
   background: url(./img/background.jpg) no-repeat center;
   background-size: cover;
-  padding-top: 240px;
-  padding-left: 250px;
+  padding-top: 150px;
+  padding-left: 200px;
 }
 
 .intro-title {
-  max-width: 1100px;
+  max-width: 60rem;
   color: white;
   font-size: 56px;
 }
 
 .intro-subtitle {
-  max-width: 750px;
+  max-width: 30rem;
   color: white;
-  font-size: 18px;
-  text-align: center;
-  padding: 0 10px;
+  font-size: 19px;
+  padding-left: 5px;
 }
 
 .main {
@@ -190,10 +197,11 @@ body {
   margin-top: 10px;
   padding: 20px;
   border-radius: 3px;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 }
 
 .wrapper-fix {
-  max-width: 1260px;
+  max-width: 79rem;
   margin: 0 auto;
 }
 
@@ -252,7 +260,7 @@ body {
   background-color: #fff;
   margin: 100px auto;
   padding: 20px;
-  width: 60%;
+  width: 70%;
 }
 
 .searchline {
@@ -282,4 +290,12 @@ body {
 
 .h-350px {
   min-height: 350px;
+}
+
+.w-30 {
+  width: 30%;
+}
+
+.w-65 {
+  width: 65%;
 }

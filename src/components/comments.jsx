@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { orderBy } from "lodash";
 import CommentsList from "./comments/commentsList";
 import AddCommentForm from "./comments/addCommentForm";
-// import { useComments } from "../../hooks/useComments";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createComment,
@@ -12,11 +11,9 @@ import {
   loadCommentsList
 } from "../store/comments";
 import { useParams } from "react-router-dom";
-import { getCurrentUserId } from "../store/users";
 
 const Comments = () => {
   const { itemId } = useParams();
-  const currentUserId = useSelector(getCurrentUserId());
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -24,12 +21,10 @@ const Comments = () => {
   }, [itemId]);
 
   const isLoading = useSelector(getCommentsLoadingStatus());
-  // const { createComment } = useComments();
   const comments = useSelector(getComments());
 
   const handleSubmit = (data) => {
-    // createComment(data);
-    dispatch(createComment(data, itemId, currentUserId));
+    dispatch(createComment({ ...data, pageId: itemId }));
   };
 
   const handleRemoveComment = (id) => {
@@ -39,9 +34,9 @@ const Comments = () => {
   const sortedComments = orderBy(comments, ["created_at"], ["desc"]);
 
   return (
-    <div className="container container-fix mt-2">
+    <div className="d-flex flex-column container container-fix w-30">
       <div className="card mb-2">
-        <div className="card-body ">
+        <div className="card-body">
           <AddCommentForm onSubmit={handleSubmit} />
         </div>
       </div>

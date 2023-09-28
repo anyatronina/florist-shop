@@ -5,14 +5,16 @@ import TextField from "../components/form/textField";
 import RadioField from "../components/form/radioField";
 // import MultiSelectField from "../components/form/multiSelectField";
 import CheckBoxField from "../components/form/checkBoxField";
-import { useDispatch } from "react-redux";
-import { signUp } from "../store/users";
+import { useDispatch, useSelector } from "react-redux";
+import { getAuthErrors, signUp } from "../store/users";
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
+  const loginError = useSelector(getAuthErrors());
   const [data, setData] = useState({
     email: "",
     password: "",
+    phone: "",
     sex: "male",
     name: "",
     licence: false
@@ -62,10 +64,9 @@ const RegisterForm = () => {
         value: 8
       }
     },
-    licence: {
-      isRequired: {
-        message:
-          "Вы не можете использовать наш сервис без подтверждения лицензионного соглашения"
+    phone: {
+      isNumber: {
+        message: "Номер телефона введен некорректно"
       }
     }
   };
@@ -103,6 +104,14 @@ const RegisterForm = () => {
         value={data.email}
         onChange={handleChange}
         error={errors.email}
+      />
+      <TextField
+        label="Номер телефона"
+        type="text"
+        name="phone"
+        value={data.phone}
+        onChange={handleChange}
+        error={errors.phone}
       />
       <TextField
         label="Имя"
@@ -148,14 +157,16 @@ const RegisterForm = () => {
         label="Выберите ваши качества"
         error={errors.qualities}
       /> */}
-      <CheckBoxField
+      {/* <CheckBoxField
         value={data.licence}
         onChange={handleChange}
         name="licence"
         error={errors.licence}
       >
         Подтвердить <a>лицензионное</a> соглашение
-      </CheckBoxField>
+      </CheckBoxField> */}
+
+      {loginError && <p className="text-danger">{loginError}</p>}
 
       <button
         type="submit"

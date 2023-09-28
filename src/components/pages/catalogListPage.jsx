@@ -67,11 +67,13 @@ const CatalogListPage = () => {
   }, [selectedFilter]);
 
   useEffect(() => {
-    const filteredUsers = getFilteredItems(searchString);
-    const usersCrop = paginate(filteredUsers, currentPage, pageSize);
+    if (!itemsLoading) {
+      const filteredUsers = getFilteredItems(searchString);
+      const usersCrop = paginate(filteredUsers, currentPage, pageSize);
 
-    if (usersCrop.length === 0 && currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+      if (usersCrop.length === 0 && currentPage > 1) {
+        setCurrentPage(currentPage - 1);
+      }
     }
   }, [items, searchString, priceSlider]);
 

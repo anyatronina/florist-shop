@@ -3,21 +3,23 @@ import FlowerCard from "../flowerCard";
 import { generateRandomId } from "../../utils/generateRandomId";
 import Loader from "../loader";
 import { useSelector } from "react-redux";
-import { getItems, loadItemsList } from "../../store/items";
+import { getItems, getItemsLoadingStatus } from "../../store/items";
 
 const MainPage = () => {
   const items = useSelector(getItems());
-  const itemsLoading = useSelector(loadItemsList());
+  const randomItems = generateRandomId(items);
+  const itemsLoading = useSelector(getItemsLoadingStatus());
 
   return (
     <main className="main">
       <section className="intro">
         <div className="wrapper">
-          <h1 className="intro-title">Nature's Beauty Delivered to You</h1>
+          <p className="intro-title p-0">Красота природы для вас</p>
           <p className="intro-subtitle">
-            Nature's beauty is just a click away with our online flower and
-            plant shop. We offer a wide variety of flowers that will bring a
-            touch of nature to your home!
+            Красота природы находится на расстоянии одного клика в нашем
+            интернет-магазине цветов и растений. Мы предлагаем широкий выбор
+            цветов, которые привнесут нотку природы в ваш дом и поднимут
+            настроение!
           </p>
         </div>
       </section>
@@ -28,8 +30,9 @@ const MainPage = () => {
           {itemsLoading && <Loader />}
 
           {!itemsLoading &&
-            items.map((item) => (
+            randomItems.map((item) => (
               <FlowerCard
+                key={item._id}
                 name={item.name}
                 price={item.price}
                 img={item.img}

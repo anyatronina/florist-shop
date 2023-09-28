@@ -1,16 +1,18 @@
 export function generateRandomId(data) {
-  const min = 1;
-  const max = data.length;
-  const randomArr = [];
+  if (data) {
+    const min = 0;
+    const max = data.length - 1;
+    const randomIndex = [];
+    const newData = [];
 
-  while (randomArr.length < 3) {
-    const id = Math.floor(Math.random() * (max - min + 1)) + min;
-    if (!randomArr.includes(id)) {
-      randomArr.push(id);
+    while (randomIndex.length < 3) {
+      const index = Math.floor(Math.random() * (max - min + 1)) + min;
+      if (!randomIndex.includes(index)) {
+        randomIndex.push(index);
+        newData.push(data[index]);
+      }
     }
+
+    return newData;
   }
-
-  const newData = data.filter((item) => randomArr.includes(parseInt(item._id)));
-
-  return newData;
 }

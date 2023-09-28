@@ -2,17 +2,21 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import RegisterForm from "../components/registerForm";
 import LoginForm from "../components/loginForm";
+import { useDispatch } from "react-redux";
+import { clearErrorList } from "../store/users";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const { type } = useParams();
   const [formType, setFormType] = useState(
     type === "register" ? type : "login"
   );
 
-  const toggleFormType = (params) => {
+  const toggleFormType = () => {
     setFormType((prevState) =>
       prevState === "register" ? "login" : "register"
     );
+    dispatch(clearErrorList());
   };
 
   return (

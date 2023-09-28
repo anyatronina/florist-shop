@@ -27,7 +27,7 @@ const Counter = ({ amount }) => {
   };
 
   return (
-    <div className="d-flex mb-2">
+    <div className="d-flex mb-3">
       <button
         className={
           sum === 1 ? "btn cart-page-btn disabled" : "btn cart-page-btn"

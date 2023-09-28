@@ -57,13 +57,6 @@ const usersSlice = createSlice({
         u._id === action.payload._id ? { ...u, ...action.payload } : { ...u }
       );
     },
-    userBasketUpdated: (state, action) => {
-      state.entities = state.entities.map((u) =>
-        u._id === action.payload._id
-          ? { ...u, basket: { ...u.basket, ...action.payload.basket } }
-          : { ...u }
-      );
-    },
     userLoggedOut: (state) => {
       state.entities = null;
       state.isLoggedIn = false;
@@ -83,13 +76,11 @@ const {
   usersRequestFailed,
   authRequestSuccess,
   authRequestFailed,
-  userCreated,
   userUpdated,
   userLoggedOut
 } = actions;
 
 const authRequested = createAction("users/authRequested");
-const userCreateRequested = createAction("users/userCreateRequested");
 const createUserFailed = createAction("users/createUserFailed");
 
 export const signIn =
@@ -99,8 +90,8 @@ export const signIn =
     dispatch(authRequested());
     try {
       const data = await authService.login({ email, password });
-      dispatch(authRequestSuccess({ userId: data.localId }));
       localStorageService.setTokens(data);
+      dispatch(authRequestSuccess({ userId: data.userId }));
       history.push(redirect);
     } catch (error) {
       const { code, message } = error.response.data.error;
@@ -113,33 +104,19 @@ export const signIn =
     }
   };
 
-export const signUp =
-  ({ email, password, ...rest }) =>
-  async (dispatch) => {
-    dispatch(authRequested());
-    try {
-      const data = await authService.register({ email, password });
-      localStorageService.setTokens(data);
-      dispatch(authRequestSuccess({ userId: data.localId }));
-      dispatch(
-        createUser({
-          _id: data.localId,
-          email,
-          phone: "не указан",
-          address: "не указан",
-          image: `https://avatars.dicebear.com/api/avataaars/${(
-            Math.random() + 1
-          )
-            .toString(36)
-            .substring(7)}.svg`,
-          basket: [],
-          ...rest
-        })
-      );
-    } catch (error) {
-      dispatch(authRequestFailed(error.message));
-    }
-  };
+export const signUp = (payload) => async (dispatch) => {
+  dispatch(authRequested());
+  try {
+    const data = await authService.register(payload);
+    localStorageService.setTokens(data);
+    dispatch(authRequestSuccess({ userId: data.userId }));
+    history.push("/");
+  } catch (error) {
+    const { message } = error.response.data.error;
+    const errorMessage = generateAuthError(message);
+    dispatch(authRequestFailed(errorMessage));
+  }
+};
 
 export const logOut = () => (dispatch) => {
   localStorageService.removeAuthData();
@@ -158,18 +135,18 @@ export const updateUserData =
     }
   };
 
-function createUser(payload) {
-  return async function (dispatch) {
-    dispatch(userCreateRequested());
-    try {
-      const { content } = await userService.create(payload);
-      dispatch(userCreated(content));
-      history.push("/users");
-    } catch (error) {
-      dispatch(createUserFailed(error.message));
-    }
-  };
-}
+// function createUser(payload) {
+//   return async function (dispatch) {
+//     dispatch(userCreateRequested());
+//     try {
+//       const { content } = await userService.create(payload);
+//       dispatch(userCreated(content));
+//       history.push("/users");
+//     } catch (error) {
+//       dispatch(createUserFailed(error.message));
+//     }
+//   };
+// }
 
 export const loadUsersList = () => async (dispatch) => {
   dispatch(usersRequested());
@@ -183,11 +160,17 @@ export const loadUsersList = () => async (dispatch) => {
 
 export const updateUserBasket = (payload) => async (dispatch) => {
   try {
+    console.log("payload", payload);
     const { content } = await userService.updateBasket(payload);
+    console.log("content", content);
     dispatch(userUpdated(content));
   } catch (error) {
     dispatch(usersRequestFailed(error.message));
   }
+};
+
+export const clearErrorList = () => (dispatch) => {
+  dispatch(authRequested());
 };
 
 export const getUsersList = () => (state) => state.users.entities;

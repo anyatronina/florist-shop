@@ -11,6 +11,7 @@ const SliderPrice = ({ price, priceSlider, onChange }) => {
       <p className="fw-bold">Цена</p>
       <Slider
         range
+        step={10}
         min={value[0]}
         max={value[1]}
         value={IsNullValue}
@@ -21,8 +22,8 @@ const SliderPrice = ({ price, priceSlider, onChange }) => {
         }}
       />
       <div className="mt-2 d-flex justify-content-evenly align-items-center user-select-none text-center">
-        <div className="searchline w-25">{priceSlider[0] || value[0]} ₽</div>—
-        <div className="searchline w-25">{priceSlider[1] || value[1]} ₽</div>
+        <div className="searchline w-30">{priceSlider[0] || value[0]} ₽</div>—
+        <div className="searchline w-30">{priceSlider[1] || value[1]} ₽</div>
       </div>
     </div>
   );

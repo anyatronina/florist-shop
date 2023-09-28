@@ -5,6 +5,8 @@ import {
   loadUsersList
 } from "../../store/users";
 import { useEffect } from "react";
+import { loadItemsList } from "../../store/items";
+import { loadBasketList } from "../../store/basket";
 
 const AppLoader = ({ children }) => {
   const dispatch = useDispatch();
@@ -12,8 +14,11 @@ const AppLoader = ({ children }) => {
   const usersStatusLoading = useSelector(getUsersLoadingStatus());
 
   useEffect(() => {
+    dispatch(loadItemsList());
+
     if (isLoggedIn) {
       dispatch(loadUsersList());
+      dispatch(loadBasketList());
     }
   }, [isLoggedIn]);
 

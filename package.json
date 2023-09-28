@@ -9,7 +9,6 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.5.0",
     "bootstrap": "^5.1.0",
-    "bootstrap-icons": "^1.10.5",
     "lodash": "^4.17.15",
     "nanoid": "^5.0.1",
     "rc-slider": "^10.2.1",
