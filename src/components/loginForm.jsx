@@ -7,7 +7,7 @@ import { getAuthErrors, signIn } from "../store/users";
 
 const LoginForm = () => {
   const history = useHistory();
-  const [data, setData] = useState({ email: "", password: "", stayOn: false });
+  const [data, setData] = useState({ email: "", password: "" });
   const loginError = useSelector(getAuthErrors());
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
@@ -46,12 +46,11 @@ const LoginForm = () => {
     e.preventDefault();
     const isValid = validate();
     if (!isValid) return;
-    const redirect = history.goBack();
+    // const redirect = history.goBack();
     // const redirect = history.location.state
     //   ? history.location.state.from.pathname
     //   : "/";
-    console.log(history.location);
-    dispatch(signIn({ payload: data, redirect }));
+    dispatch(signIn(data));
   };
 
   useEffect(() => {

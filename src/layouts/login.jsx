@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import RegisterForm from "../components/registerForm";
 import LoginForm from "../components/loginForm";
-import { useDispatch } from "react-redux";
-import { clearErrorList } from "../store/users";
+import { useDispatch, useSelector } from "react-redux";
+import { clearErrorList, getIsLoggedIn } from "../store/users";
 
 const Login = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const { type } = useParams();
   const [formType, setFormType] = useState(
     type === "register" ? type : "login"
   );
+  const loggedIn = useSelector(getIsLoggedIn());
 
   const toggleFormType = () => {
     setFormType((prevState) =>
@@ -18,6 +20,8 @@ const Login = () => {
     );
     dispatch(clearErrorList());
   };
+
+  if (loggedIn) return history.push("/");
 
   return (
     <div className="container mt-5">

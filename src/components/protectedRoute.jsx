@@ -1,10 +1,16 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { getIsLoggedIn } from "../store/users";
+import { getCurrentUserData, getIsLoggedIn } from "../store/users";
+import config from "../config.json";
+import UsersOrder from "../layouts/usersOrder";
 
 const ProtectedRoute = ({ component: Component, children, ...rest }) => {
   const isLoggedIn = useSelector(getIsLoggedIn());
+  const currentUser = useSelector(getCurrentUserData());
+  const admin = currentUser?.email === config.admin.email;
+
+  console.log(Component);
 
   return (
     <Route
@@ -22,6 +28,7 @@ const ProtectedRoute = ({ component: Component, children, ...rest }) => {
             />
           );
         }
+
         return Component ? <Component {...props} /> : children;
       }}
     />

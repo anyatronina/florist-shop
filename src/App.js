@@ -1,10 +1,8 @@
 import "./App.css";
-// import FlowerCard from "./components/flowerCard";
 import NavBar from "./components/navBar";
 import { Switch, Route, Redirect } from "react-router-dom";
 import Catalog from "./layouts/catalog";
-import Delivery from "./layouts/delivery";
-// import About from "./layouts/about";
+import UsersOrder from "./layouts/usersOrder";
 import MainPage from "./components/pages/mainPage";
 import Basket from "./layouts/basket";
 import BasketProvider from "./hooks/useBasket";
@@ -15,6 +13,7 @@ import Login from "./layouts/login";
 import LogOut from "./layouts/logOut";
 import PersonalAccount from "./components/pages/personalAccount";
 import ProtectedRoute from "./components/protectedRoute";
+import AdminRoute from "./components/adminRoute";
 
 function App() {
   return (
@@ -29,8 +28,7 @@ function App() {
                 component={PersonalAccount}
               />
               <Route path="/catalog/:itemId?" component={Catalog} />
-              <Route path="/delivery" component={Delivery} />
-              {/* <Route path="/about" component={About} /> */}
+              <AdminRoute path="/orders" component={UsersOrder} />
               <ProtectedRoute path="/cart" component={Basket} />
               {/* <Route path="/favorites" component={Favorites} /> */}
               <Route path="/login" component={Login} />

@@ -83,26 +83,24 @@ const {
 const authRequested = createAction("users/authRequested");
 const createUserFailed = createAction("users/createUserFailed");
 
-export const signIn =
-  ({ payload, redirect }) =>
-  async (dispatch) => {
-    const { email, password } = payload;
-    dispatch(authRequested());
-    try {
-      const data = await authService.login({ email, password });
-      localStorageService.setTokens(data);
-      dispatch(authRequestSuccess({ userId: data.userId }));
-      history.push(redirect);
-    } catch (error) {
-      const { code, message } = error.response.data.error;
-      if (code === 400) {
-        const errorMessage = generateAuthError(message);
-        dispatch(authRequestFailed(errorMessage));
-      } else {
-        dispatch(authRequestFailed(error.message));
-      }
+export const signIn = (payload) => async (dispatch) => {
+  const { email, password } = payload;
+  dispatch(authRequested());
+  try {
+    const data = await authService.login({ email, password });
+    localStorageService.setTokens(data);
+    dispatch(authRequestSuccess({ userId: data.userId }));
+    history.goBack();
+  } catch (error) {
+    const { code, message } = error.response.data.error;
+    if (code === 400) {
+      const errorMessage = generateAuthError(message);
+      dispatch(authRequestFailed(errorMessage));
+    } else {
+      dispatch(authRequestFailed(error.message));
     }
-  };
+  }
+};
 
 export const signUp = (payload) => async (dispatch) => {
   dispatch(authRequested());
