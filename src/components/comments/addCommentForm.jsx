@@ -54,7 +54,7 @@ const AddCommentForm = ({ onSubmit }) => {
           error={errors.content}
         />
         <div className="d-flex justify-content-end">
-          <button className="btn btn-primary">Опубликовать</button>
+          <button className="btn btn-secondary btn-lg ">Опубликовать</button>
         </div>
       </form>
     </div>

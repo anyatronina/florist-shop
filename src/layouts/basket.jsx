@@ -80,10 +80,7 @@ const Basket = () => {
               <span className="fw-bold">{total} ₽</span>
             </div>
             <div>
-              <button
-                className="btn btn-secondary btn-lg"
-                onClick={handleOrder}
-              >
+              <button className="btn btn-dark btn-lg" onClick={handleOrder}>
                 Оформить заказ
               </button>
             </div>

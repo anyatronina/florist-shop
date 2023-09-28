@@ -41,9 +41,8 @@ const FlowerPage = ({ itemId }) => {
         <div className="d-flex mt-1 media-column">
           <div
             className={
-              isModalAndNotLogged
-                ? "container container-fix shadow-sm w-65 h-100 me-0"
-                : "container container-fix shadow-sm"
+              "container container-fix shadow-sm" +
+              (isModalAndNotLogged ? " w-65 h-100 me-0" : "")
             }
           >
             <div className="row">

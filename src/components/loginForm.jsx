@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { validator } from "../utils/validator";
 import TextField from "../components/form/textField";
-import CheckBoxField from "../components/form/checkBoxField";
 import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAuthErrors, signIn } from "../store/users";
@@ -47,10 +46,11 @@ const LoginForm = () => {
     e.preventDefault();
     const isValid = validate();
     if (!isValid) return;
-    const redirect = history.location.state
-      ? history.location.state.from.pathname
-      : "/";
-    console.log(data);
+    const redirect = history.goBack();
+    // const redirect = history.location.state
+    //   ? history.location.state.from.pathname
+    //   : "/";
+    console.log(history.location);
     dispatch(signIn({ payload: data, redirect }));
   };
 
