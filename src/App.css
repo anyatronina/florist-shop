@@ -19,6 +19,19 @@ body {
   min-width: 90rem;
 }
 
+.a-footer {
+  text-decoration: none;
+  color: white;
+  margin-right: 2rem;
+  transition: 0.2s;
+}
+
+.a-footer:hover {
+  text-decoration: none;
+  color: white;
+  transform: scale(1.2);
+}
+
 .header {
   width: 100%;
   background: white;
@@ -89,6 +102,10 @@ body {
 .header-link {
   color: black;
   text-decoration: none;
+}
+
+.header-link:hover {
+  color: black;
 }
 
 .intro {

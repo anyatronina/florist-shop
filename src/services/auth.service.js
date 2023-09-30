@@ -22,6 +22,18 @@ const authService = {
     });
     return data;
   },
+  reset: async (payload) => {
+    const { data } = await httpAuth.post(`resetPassword`, payload);
+    return data;
+  },
+  check: async (payload) => {
+    const { data } = await httpAuth.post(`isValidPassword`, payload);
+    return data;
+  },
+  change: async (payload) => {
+    const { data } = await httpAuth.post(`changePassword`, payload);
+    return data;
+  },
   refresh: async () => {
     const { data } = await httpAuth.post("token", {
       grant_type: "refresh_token",

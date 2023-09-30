@@ -48,9 +48,27 @@ const MainPage = () => {
             <h2>Мы всегда открыты для обратной связи:</h2>
           </div>
           <div className="footer-contacts-list">
-            <div className="me-3">instagram</div>
-            <div className="me-3">vkontakte</div>
-            <div className="me-3">telegram</div>
+            <a
+              href="https://www.instagram.com/"
+              target="_blank"
+              className="a-footer"
+            >
+              instagram
+            </a>
+            <a
+              href="https://vk.com/genebelcher"
+              target="_blank"
+              className="a-footer"
+            >
+              vkontakte
+            </a>
+            <a
+              href="https://t.me/mamamoetramy"
+              target="_blank"
+              className="a-footer"
+            >
+              telegram
+            </a>
           </div>
         </div>
       </section>

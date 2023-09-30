@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
   getIsLoggedIn,
-  getUsersLoadingStatus,
+  // getUsersLoadingStatus,
   loadUsersList
 } from "../../store/users";
 import { useEffect } from "react";
@@ -11,7 +11,7 @@ import { loadBasketList } from "../../store/basket";
 const AppLoader = ({ children }) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(getIsLoggedIn());
-  const usersStatusLoading = useSelector(getUsersLoadingStatus());
+  // const usersStatusLoading = useSelector(getUsersLoadingStatus());
 
   useEffect(() => {
     dispatch(loadItemsList());
@@ -22,7 +22,7 @@ const AppLoader = ({ children }) => {
     }
   }, [isLoggedIn]);
 
-  if (usersStatusLoading) return "Loading...";
+  // if (usersStatusLoading) return "Loading...";
   return children;
 };
 

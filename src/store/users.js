@@ -12,7 +12,9 @@ const initialState = localStorageService.getAccessToken()
       error: null,
       auth: { userId: localStorageService.getUserId() },
       isLoggedIn: true,
-      dataLoaded: false
+      dataLoaded: false,
+      isReset: false,
+      isResetComplete: false
     }
   : {
       entities: null,
@@ -20,7 +22,9 @@ const initialState = localStorageService.getAccessToken()
       error: null,
       auth: null,
       isLoggedIn: false,
-      dataLoaded: false
+      dataLoaded: false,
+      isReset: false,
+      isResetComplete: false
     };
 
 const usersSlice = createSlice({
@@ -29,6 +33,8 @@ const usersSlice = createSlice({
   reducers: {
     usersRequested: (state) => {
       state.isLoading = true;
+      state.isReset = false;
+      state.isResetComplete = false;
     },
     usersReceived: (state, action) => {
       state.entities = action.payload;
@@ -45,6 +51,7 @@ const usersSlice = createSlice({
     },
     authRequestFailed: (state, action) => {
       state.error = action.payload;
+      state.isLoading = false;
     },
     userCreated: (state, action) => {
       if (!Array.isArray(state.entities)) {
@@ -56,6 +63,7 @@ const usersSlice = createSlice({
       state.entities = state.entities.map((u) =>
         u._id === action.payload._id ? { ...u, ...action.payload } : { ...u }
       );
+      state.isLoading = false;
     },
     userLoggedOut: (state) => {
       state.entities = null;
@@ -65,6 +73,24 @@ const usersSlice = createSlice({
     },
     authRequested: (state) => {
       state.error = null;
+    },
+    authRequestedReset: (state) => {
+      state.error = null;
+      state.isLoading = true;
+    },
+    userRequestSuccess: (state) => {
+      state.isLoading = false;
+      state.isReset = true;
+    },
+    userPasswordRequestSuccess: (state) => {
+      state.isLoading = false;
+      state.isReset = false;
+      state.isResetComplete = true;
+    },
+    userChangeRequestSuccess: (state) => {
+      state.isLoading = false;
+      state.isReset = false;
+      state.isResetComplete = false;
     }
   }
 });
@@ -77,10 +103,14 @@ const {
   authRequestSuccess,
   authRequestFailed,
   userUpdated,
-  userLoggedOut
+  userLoggedOut,
+  userRequestSuccess,
+  authRequested,
+  authRequestedReset,
+  userPasswordRequestSuccess,
+  userChangeRequestSuccess
 } = actions;
 
-const authRequested = createAction("users/authRequested");
 const createUserFailed = createAction("users/createUserFailed");
 
 export const signIn = (payload) => async (dispatch) => {
@@ -116,6 +146,55 @@ export const signUp = (payload) => async (dispatch) => {
   }
 };
 
+export const resetPassword = (payload) => async (dispatch) => {
+  dispatch(authRequestedReset());
+  try {
+    const data = await authService.reset(payload);
+    if (data) dispatch(userRequestSuccess());
+  } catch (error) {
+    const { code, message } = error.response.data.error;
+    if (code === 400) {
+      const errorMessage = generateAuthError(message);
+      dispatch(authRequestFailed(errorMessage));
+    } else {
+      dispatch(authRequestFailed(error.message));
+    }
+  }
+};
+
+export const checkResetPassword = (payload) => async (dispatch) => {
+  dispatch(authRequestedReset());
+  try {
+    const data = await authService.check(payload);
+    if (data) dispatch(userPasswordRequestSuccess());
+  } catch (error) {
+    const { code, message } = error.response.data.error;
+    if (code === 400) {
+      const errorMessage = generateAuthError(message);
+      dispatch(authRequestFailed(errorMessage));
+    } else {
+      dispatch(authRequestFailed(error.message));
+    }
+  }
+};
+
+export const changePassword = (payload) => async (dispatch) => {
+  dispatch(authRequestedReset());
+  try {
+    const data = await authService.change(payload);
+    dispatch(userChangeRequestSuccess());
+    history.push("/");
+  } catch (error) {
+    const { code, message } = error.response.data.error;
+    if (code === 400) {
+      const errorMessage = generateAuthError(message);
+      dispatch(authRequestFailed(errorMessage));
+    } else {
+      dispatch(authRequestFailed(error.message));
+    }
+  }
+};
+
 export const logOut = () => (dispatch) => {
   localStorageService.removeAuthData();
   dispatch(userLoggedOut());
@@ -125,6 +204,7 @@ export const logOut = () => (dispatch) => {
 export const updateUserData =
   ({ payload }) =>
   async (dispatch) => {
+    dispatch(usersRequested());
     try {
       const { content } = await userService.update(payload);
       dispatch(userUpdated(content));
@@ -133,35 +213,11 @@ export const updateUserData =
     }
   };
 
-// function createUser(payload) {
-//   return async function (dispatch) {
-//     dispatch(userCreateRequested());
-//     try {
-//       const { content } = await userService.create(payload);
-//       dispatch(userCreated(content));
-//       history.push("/users");
-//     } catch (error) {
-//       dispatch(createUserFailed(error.message));
-//     }
-//   };
-// }
-
 export const loadUsersList = () => async (dispatch) => {
   dispatch(usersRequested());
   try {
     const { content } = await userService.get();
     dispatch(usersReceived(content));
-  } catch (error) {
-    dispatch(usersRequestFailed(error.message));
-  }
-};
-
-export const updateUserBasket = (payload) => async (dispatch) => {
-  try {
-    console.log("payload", payload);
-    const { content } = await userService.updateBasket(payload);
-    console.log("content", content);
-    dispatch(userUpdated(content));
   } catch (error) {
     dispatch(usersRequestFailed(error.message));
   }
@@ -196,5 +252,7 @@ export const getDataStatus = () => (state) => state.users.dataLoaded;
 export const getUsersLoadingStatus = () => (state) => state.users.isLoading;
 export const getCurrentUserId = () => (state) => state.users.auth.userId;
 export const getAuthErrors = () => (state) => state.users.error;
+export const getIsReset = () => (state) => state.users.isReset;
+export const getIsResetComplete = () => (state) => state.users.isResetComplete;
 
 export default usersReducer;

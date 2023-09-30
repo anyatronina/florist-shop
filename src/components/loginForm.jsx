@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { validator } from "../utils/validator";
 import TextField from "../components/form/textField";
-import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getAuthErrors, signIn } from "../store/users";
 
 const LoginForm = () => {
-  const history = useHistory();
   const [data, setData] = useState({ email: "", password: "" });
   const loginError = useSelector(getAuthErrors());
   const [errors, setErrors] = useState({});
@@ -25,15 +23,15 @@ const LoginForm = () => {
       isRequired: {
         message: "Пароль обязателен для заполнения"
       },
+      min: {
+        message: "Пароль должен состоять минимум из 8 символов",
+        value: 8
+      },
       isCapitalSymbol: {
         message: "Пароль должен содержать хотя бы 1 заглавную букву"
       },
       isContainDigit: {
         message: "Пароль должен содержать хотя бы 1 цифру"
-      },
-      min: {
-        message: "Пароль должен состоять минимум из 8 символов",
-        value: 8
       }
     }
   };
@@ -46,10 +44,6 @@ const LoginForm = () => {
     e.preventDefault();
     const isValid = validate();
     if (!isValid) return;
-    // const redirect = history.goBack();
-    // const redirect = history.location.state
-    //   ? history.location.state.from.pathname
-    //   : "/";
     dispatch(signIn(data));
   };
 
@@ -83,9 +77,6 @@ const LoginForm = () => {
         onChange={handleChange}
         error={errors.password}
       />
-      {/* <CheckBoxField value={data.stayOn} onChange={handleChange} name="stayOn">
-        Оставаться в системе
-      </CheckBoxField> */}
       {loginError && <p className="text-danger">{loginError}</p>}
 
       <button

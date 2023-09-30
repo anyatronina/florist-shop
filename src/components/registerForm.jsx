@@ -53,15 +53,15 @@ const RegisterForm = () => {
       isRequired: {
         message: "Пароль обязателен для заполнения"
       },
+      min: {
+        message: "Пароль должен состоять минимум из 8 символов",
+        value: 8
+      },
       isCapitalSymbol: {
         message: "Пароль должен содержать хотя бы 1 заглавную букву"
       },
       isContainDigit: {
         message: "Пароль должен содержать хотя бы 1 цифру"
-      },
-      min: {
-        message: "Пароль должен состоять минимум из 8 символов",
-        value: 8
       }
     },
     phone: {
