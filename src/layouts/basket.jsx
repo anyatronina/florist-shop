@@ -102,55 +102,6 @@ const Basket = () => {
       )}
     </div>
   );
-
-  // if (itemsBasket) {
-  //   return (
-  //     <div className="wrapper-fix">
-  //       <h1 className="mt-3">Корзина</h1>
-  //       {itemsBasket.length > 0 &&
-  //         itemsBasket.map((item) => (
-  //           <ItemBasket
-  //             key={item.idBasket}
-  //             idBasket={item.idBasket}
-  //             _id={item.itemId}
-  //             amount={item.amount}
-  //             onDelete={handleDelete}
-  //           />
-  //         ))}
-
-  //       {itemsBasket.length > 0 && (
-  //         <div className="d-flex justify-content-between align-items-start my-3">
-  //           <div className="d-flex cart-page-p">
-  //             <button
-  //               className="btn btn-outline-secondary btn-lg"
-  //               onClick={handleClear}
-  //             >
-  //               Очистить корзину
-  //             </button>
-  //           </div>
-
-  //           <div className="d-flex flex-column align-items-end">
-  //             <div className="cart-page-p mb-2">
-  //               К оплате &nbsp;
-  //               <span className="fw-bold">{total} ₽</span>
-  //             </div>
-  //             <div>
-  //               <button className="btn btn-secondary btn-lg">
-  //                 Оформить заказ
-  //               </button>
-  //             </div>
-  //           </div>
-  //         </div>
-  //       )}
-
-  //       {itemsBasket.length === 0 && (
-  //         <div className="container-fix d-flex justify-content-between align-items-center">
-  //           В корзине пока пусто
-  //         </div>
-  //       )}
-  //     </div>
-  //   );
-  // }
 };
 
 export default Basket;

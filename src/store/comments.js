@@ -38,7 +38,6 @@ const {
   commentsReceived,
   commentsRequestFailed,
   commentsRemove,
-  // commentsUpdated,
   commentCreated
 } = actions;
 

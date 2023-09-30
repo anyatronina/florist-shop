@@ -1,4 +1,4 @@
-import { createAction, createSlice } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import userService from "../services/user.service";
 import authService from "../services/auth.service";
 import localStorageService from "../services/localStorage.service";
@@ -111,8 +111,6 @@ const {
   userChangeRequestSuccess
 } = actions;
 
-const createUserFailed = createAction("users/createUserFailed");
-
 export const signIn = (payload) => async (dispatch) => {
   const { email, password } = payload;
   dispatch(authRequested());
@@ -209,7 +207,7 @@ export const updateUserData =
       const { content } = await userService.update(payload);
       dispatch(userUpdated(content));
     } catch (error) {
-      dispatch(createUserFailed(error.message));
+      dispatch(authRequestFailed(error.message));
     }
   };
 

@@ -7,7 +7,7 @@ import MainPage from "./components/pages/mainPage";
 import Basket from "./layouts/basket";
 import BasketProvider from "./hooks/useBasket";
 import ModalProvider from "./hooks/useModal";
-// import Favorites from "./layouts/favorites";
+import Favorites from "./layouts/favorites";
 import AppLoader from "./components/hoc/appLoader";
 import Login from "./layouts/login";
 import LogOut from "./layouts/logOut";
@@ -30,7 +30,7 @@ function App() {
               <Route path="/catalog/:itemId?" component={Catalog} />
               <AdminRoute path="/orders" component={UsersOrder} />
               <ProtectedRoute path="/cart" component={Basket} />
-              {/* <Route path="/favorites" component={Favorites} /> */}
+              <ProtectedRoute path="/favorites" component={Favorites} />
               <Route path="/login" component={Login} />
               <Route path="/logout" component={LogOut} />
               <Route path="/" exact component={MainPage} />

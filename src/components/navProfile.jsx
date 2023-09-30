@@ -11,28 +11,29 @@ const NavProfile = () => {
     setOpen((prevState) => !prevState);
   };
 
-  if (!currentUser) return <div className="sign-in">Загрузка...</div>;
-  return (
-    <div className="dropdown" onClick={toggleMenu}>
-      <div className="btn sign-in dropdown-toggle d-flex align-items-center">
-        <img
-          src={currentUser.image}
-          alt=""
-          height="40"
-          className="img-responsive rounded-circle"
-        />
-        <div className="font ms-2">{currentUser.name}</div>
+  if (currentUser) {
+    return (
+      <div className="dropdown" onClick={toggleMenu}>
+        <div className="btn sign-in dropdown-toggle d-flex align-items-center">
+          <img
+            src={currentUser.image}
+            alt=""
+            height="40"
+            className="img-responsive rounded-circle"
+          />
+          <div className="font ms-2">{currentUser.name}</div>
+        </div>
+        <div className={"w-200 end-0 dropdown-menu" + (isOpen ? " show" : "")}>
+          <Link to={`/users/${currentUser._id}`} className="dropdown-item">
+            Личный кабинет
+          </Link>
+          <Link to="/logout" className="dropdown-item">
+            Выйти
+          </Link>
+        </div>
       </div>
-      <div className={"w-200 end-0 dropdown-menu" + (isOpen ? " show" : "")}>
-        <Link to={`/users/${currentUser._id}`} className="dropdown-item">
-          Личный кабинет
-        </Link>
-        <Link to="/logout" className="dropdown-item">
-          Выйти
-        </Link>
-      </div>
-    </div>
-  );
+    );
+  }
 };
 
 export default NavProfile;

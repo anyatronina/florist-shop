@@ -7,6 +7,8 @@ import {
 import { useEffect } from "react";
 import { loadItemsList } from "../../store/items";
 import { loadBasketList } from "../../store/basket";
+import { loadFavoritesList } from "../../store/favorites";
+// import Loader from "../loader";
 
 const AppLoader = ({ children }) => {
   const dispatch = useDispatch();
@@ -19,10 +21,11 @@ const AppLoader = ({ children }) => {
     if (isLoggedIn) {
       dispatch(loadUsersList());
       dispatch(loadBasketList());
+      dispatch(loadFavoritesList());
     }
   }, [isLoggedIn]);
 
-  // if (usersStatusLoading) return "Loading...";
+  // if (usersStatusLoading && !isReset && !isResetComplete) return <Loader />;
   return children;
 };
 

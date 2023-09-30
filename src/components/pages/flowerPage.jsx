@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getIsLoggedIn } from "../../store/users";
 import { useHistory } from "react-router-dom";
 import { getItemById } from "../../store/items";
-import { addItem } from "../../store/basket";
+import { addItem, deleteItem, getFavoritesById } from "../../store/favorites";
 import { nanoid } from "@reduxjs/toolkit";
 import { Link } from "react-router-dom";
 
@@ -21,6 +21,7 @@ const FlowerPage = ({ itemId }) => {
   const history = useHistory();
   let amount = 1;
   const isModalAndNotLogged = !statusModal && loggedIn;
+  const isFavorites = useSelector(getFavoritesById(itemId));
 
   if (item) {
     const { name, price, img } = item;
@@ -34,6 +35,18 @@ const FlowerPage = ({ itemId }) => {
       const idBasket = nanoid(4);
       dispatch(addItem({ amount, itemId, idBasket, price }));
       updateSum(0);
+    };
+
+    const handleFavorites = () => {
+      closeModal();
+      if (!loggedIn) {
+        return history.push(`/login`);
+      }
+      dispatch(addItem({ itemId }));
+    };
+
+    const handleDelete = (itemId) => {
+      dispatch(deleteItem(itemId));
     };
 
     return (
@@ -64,7 +77,22 @@ const FlowerPage = ({ itemId }) => {
                 >
                   В корзину
                 </button>
-                <button className="btn btn-dark btn-lg">Избранное</button>
+
+                {isFavorites ? (
+                  <button
+                    className="btn btn-outline-secondary btn-lg"
+                    onClick={() => handleDelete(itemId)}
+                  >
+                    Удалить
+                  </button>
+                ) : (
+                  <button
+                    className="btn btn-dark btn-lg"
+                    onClick={handleFavorites}
+                  >
+                    Избранное
+                  </button>
+                )}
               </div>
             </div>
           </div>

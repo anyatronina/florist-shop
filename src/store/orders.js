@@ -37,7 +37,6 @@ export const loadOrderList = () => async (dispatch, getState) => {
 };
 
 export const getOrders = () => (state) => state.orders.entities;
-// export const getDataStatus = () => (state) => state.orders.dataLoaded;
 export const getOrdersLoadingStatus = () => (state) => state.orders.isLoading;
 export const getOrderById = (id) => (state) => {
   if (state.orders.entities) {

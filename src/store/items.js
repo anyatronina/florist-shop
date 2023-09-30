@@ -49,7 +49,6 @@ export const loadItemsList = () => async (dispatch, getState) => {
 };
 
 export const getItems = () => (state) => state.items.entities;
-// export const getDataStatus = () => (state) => state.items.dataLoaded;
 export const getItemsLoadingStatus = () => (state) => state.items.isLoading;
 export const getItemById = (id) => (state) => {
   if (state.items.entities) {
