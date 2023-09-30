@@ -66,7 +66,7 @@ export const loadFavoritesList = () => (dispatch) => {
   }
 };
 
-export const addItem = (payload) => (dispatch) => {
+export const addItemFavorites = (payload) => (dispatch) => {
   dispatch(favoritesRequested());
   try {
     dispatch(favoritesItemAdded(payload));

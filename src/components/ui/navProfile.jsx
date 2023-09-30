@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { getCurrentUserData } from "../store/users";
+import { getCurrentUserData } from "../../store/users";
 
 const NavProfile = () => {
   const currentUser = useSelector(getCurrentUserData());

@@ -2,9 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import NavProfile from "./navProfile";
 import { useSelector } from "react-redux";
-import { getCurrentUserData, getIsLoggedIn } from "../store/users";
-import { getBasketCount } from "../store/basket";
-import config from "../config.json";
+import { getCurrentUserData, getIsLoggedIn } from "../../store/users";
+import { getBasketCount } from "../../store/basket";
+import config from "../../config.json";
 
 const NavBar = () => {
   const isLoggedIn = useSelector(getIsLoggedIn());

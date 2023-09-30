@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useBasket } from "../hooks/useBasket";
+import { useBasket } from "../../hooks/useBasket";
 
 const Counter = ({ amount }) => {
   const [sum, setSum] = useState(amount);

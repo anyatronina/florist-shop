@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { getItemById } from "../store/items";
+import { getItemById } from "../../store/items";
 
 const ItemBasket = ({ idBasket, _id, amount, onDelete }) => {
   const item = useSelector(getItemById(_id));
@@ -13,7 +13,7 @@ const ItemBasket = ({ idBasket, _id, amount, onDelete }) => {
         <div className="d-flex align-items-center">
           <img
             className="cart-page-img me-4"
-            src={require(`../img/flowers2/${img}.jpg`)}
+            src={require(`../../img/flowers2/${img}.jpg`)}
             alt={name}
           />
           <p className="cart-page-p">{name}</p>

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { orderBy } from "lodash";
-import CommentsList from "./comments/commentsList";
-import AddCommentForm from "./comments/addCommentForm";
+import CommentsList from "../common/comments/commentsList";
+import AddCommentForm from "../common/comments/addCommentForm";
 import { useDispatch, useSelector } from "react-redux";
 import {
   createComment,
@@ -9,7 +9,7 @@ import {
   getComments,
   getCommentsLoadingStatus,
   loadCommentsList
-} from "../store/comments";
+} from "../../store/comments";
 import { useParams } from "react-router-dom";
 
 const Comments = () => {

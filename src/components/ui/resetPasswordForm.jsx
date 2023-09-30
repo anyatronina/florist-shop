@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { validator } from "../utils/validator";
-import TextField from "../components/form/textField";
+import React, { useEffect, useState } from "react";
+import { validator } from "../../utils/validator";
+import TextField from "../common/form/textField";
 import { useDispatch, useSelector } from "react-redux";
 import {
   changePassword,
@@ -8,10 +8,10 @@ import {
   getAuthErrors,
   getIsReset,
   getIsResetComplete,
-  getUsersLoadingStatus,
+  getResetLoadingStatus,
   resetPassword
-} from "../store/users";
-import Loader from "./loader";
+} from "../../store/users";
+import Loader from "../common/loader";
 
 const ResetPasswordForm = () => {
   const [data, setData] = useState({
@@ -22,9 +22,13 @@ const ResetPasswordForm = () => {
   const resetError = useSelector(getAuthErrors());
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
-  const isLoading = useSelector(getUsersLoadingStatus());
+  const isLoading = useSelector(getResetLoadingStatus());
   const isReset = useSelector(getIsReset());
   const isResetComplete = useSelector(getIsResetComplete());
+
+  useEffect(() => {
+    validate();
+  }, [data]);
 
   const validatorConfig = {
     email: {
@@ -122,7 +126,7 @@ const ResetPasswordForm = () => {
 
               <button
                 type="submit"
-                disabled={!isValid}
+                // disabled={!isValid}
                 className="btn btn-primary w-100 mx-auto"
               >
                 Отправить

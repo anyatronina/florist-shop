@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { getItemById } from "../store/items";
+import { getItemById } from "../../store/items";
 
 const ItemFavorites = ({ itemId, onDelete }) => {
   const item = useSelector(getItemById(itemId));
@@ -12,7 +12,7 @@ const ItemFavorites = ({ itemId, onDelete }) => {
         <Link className="header-link" to={`/catalog/${itemId}`}>
           <img
             className="product-image"
-            src={require(`../img/flowers2/${item.img}.jpg`)}
+            src={require(`../../img/flowers2/${item.img}.jpg`)}
             alt={item.name}
           />
         </Link>

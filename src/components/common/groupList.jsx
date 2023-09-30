@@ -21,6 +21,7 @@ const GroupList = ({ selectedItem, onItemSelect }) => {
             type="radio"
             name="filter"
             id={item._id}
+            key={item._id}
             checked={item._id === selectedItem?._id ? true : false}
           />
           <label className="form-check-label" htmlFor={item._id}>
@@ -33,20 +34,3 @@ const GroupList = ({ selectedItem, onItemSelect }) => {
 };
 
 export default GroupList;
-
-// <ul className="list-group">
-//   <p className="fw-bold">Категории</p>
-//   {items.map((item) => (
-//     <li
-//       key={item._id}
-//       className={
-//         "list-group-item" +
-//         (selectedItem && item._id === selectedItem._id ? " active" : "")
-//       }
-//       onClick={() => onItemSelect(item)}
-//       role="button"
-//     >
-//       {item.name}
-//     </li>
-//   ))}
-// </ul>

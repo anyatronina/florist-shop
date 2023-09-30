@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { validator } from "../utils/validator";
-import TextField from "../components/form/textField";
+import { validator } from "../../utils/validator";
+import TextField from "../common/form/textField";
 import { useDispatch, useSelector } from "react-redux";
-import { getAuthErrors, signIn } from "../store/users";
+import { getAuthErrors, signIn } from "../../store/users";
 
 const LoginForm = () => {
   const [data, setData] = useState({ email: "", password: "" });

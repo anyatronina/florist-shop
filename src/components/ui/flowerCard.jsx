@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useModal } from "../hooks/useModal";
+import { useModal } from "../../hooks/useModal";
 
 const FlowerCard = ({ name, price, img, id }) => {
   const { openModal } = useModal();
@@ -10,7 +10,7 @@ const FlowerCard = ({ name, price, img, id }) => {
       <Link className="header-link" to={`/catalog/${id}`}>
         <img
           className="product-image"
-          src={require(`../img/flowers2/${img}.jpg`)}
+          src={require(`../../img/flowers2/${img}.jpg`)}
           alt={name}
         />
       </Link>

@@ -1,7 +1,7 @@
 import React from "react";
-import FlowerCard from "../flowerCard";
+import FlowerCard from "../ui/flowerCard";
 import { generateRandomId } from "../../utils/generateRandomId";
-import Loader from "../loader";
+import Loader from "../common/loader";
 import { useSelector } from "react-redux";
 import { getItems, getItemsLoadingStatus } from "../../store/items";
 

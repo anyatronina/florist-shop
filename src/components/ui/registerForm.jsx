@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { validator } from "../utils/validator";
-import TextField from "../components/form/textField";
-// import SelectField from "../components/form/selectField";
-import RadioField from "../components/form/radioField";
-// import MultiSelectField from "../components/form/multiSelectField";
-import CheckBoxField from "../components/form/checkBoxField";
+import { validator } from "../../utils/validator";
+import TextField from "../common/form/textField";
+import RadioField from "../common/form/radioField";
 import { useDispatch, useSelector } from "react-redux";
-import { getAuthErrors, signUp } from "../store/users";
+import { getAuthErrors, signUp } from "../../store/users";
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
@@ -19,16 +16,6 @@ const RegisterForm = () => {
     name: "",
     licence: false
   });
-  // const qualities = useSelector(getQualities());
-  // const qualitiesList = qualities.map((q) => ({
-  //   label: q.name,
-  //   value: q._id
-  // }));
-  // const professions = useSelector(getProfessions());
-  // const professionsList = professions.map((p) => ({
-  //   label: p.name,
-  //   value: p._id
-  // }));
   const [errors, setErrors] = useState({});
 
   const validatorConfig = {
@@ -129,15 +116,6 @@ const RegisterForm = () => {
         onChange={handleChange}
         error={errors.password}
       />
-      {/* <SelectField
-        label="Выберите вашу профессию"
-        defaultOption="Выберите..."
-        name="profession"
-        options={professionsList}
-        onChange={handleChange}
-        value={data.profession}
-        error={errors.profession}
-      /> */}
       <RadioField
         options={[
           { name: "Male", value: "male" },
@@ -149,22 +127,6 @@ const RegisterForm = () => {
         onChange={handleChange}
         label="Выберите ваш пол"
       />
-      {/* <MultiSelectField
-        options={qualitiesList}
-        onChange={handleChange}
-        defaultValue={data.qualities}
-        name="qualities"
-        label="Выберите ваши качества"
-        error={errors.qualities}
-      /> */}
-      {/* <CheckBoxField
-        value={data.licence}
-        onChange={handleChange}
-        name="licence"
-        error={errors.licence}
-      >
-        Подтвердить <a>лицензионное</a> соглашение
-      </CheckBoxField> */}
 
       {loginError && <p className="text-danger">{loginError}</p>}
 

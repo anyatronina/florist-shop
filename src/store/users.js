@@ -13,6 +13,7 @@ const initialState = localStorageService.getAccessToken()
       auth: { userId: localStorageService.getUserId() },
       isLoggedIn: true,
       dataLoaded: false,
+      resetLoading: false,
       isReset: false,
       isResetComplete: false
     }
@@ -23,6 +24,7 @@ const initialState = localStorageService.getAccessToken()
       auth: null,
       isLoggedIn: false,
       dataLoaded: false,
+      resetLoading: false,
       isReset: false,
       isResetComplete: false
     };
@@ -52,6 +54,7 @@ const usersSlice = createSlice({
     authRequestFailed: (state, action) => {
       state.error = action.payload;
       state.isLoading = false;
+      state.resetLoading = false;
     },
     userCreated: (state, action) => {
       if (!Array.isArray(state.entities)) {
@@ -76,19 +79,19 @@ const usersSlice = createSlice({
     },
     authRequestedReset: (state) => {
       state.error = null;
-      state.isLoading = true;
+      state.resetLoading = true;
     },
     userRequestSuccess: (state) => {
-      state.isLoading = false;
+      state.resetLoading = false;
       state.isReset = true;
     },
     userPasswordRequestSuccess: (state) => {
-      state.isLoading = false;
+      state.resetLoading = false;
       state.isReset = false;
       state.isResetComplete = true;
     },
     userChangeRequestSuccess: (state) => {
-      state.isLoading = false;
+      state.resetLoading = false;
       state.isReset = false;
       state.isResetComplete = false;
     }
@@ -248,6 +251,7 @@ export const getUserById = (userId) => (state) => {
 export const getIsLoggedIn = () => (state) => state.users.isLoggedIn;
 export const getDataStatus = () => (state) => state.users.dataLoaded;
 export const getUsersLoadingStatus = () => (state) => state.users.isLoading;
+export const getResetLoadingStatus = () => (state) => state.users.resetLoading;
 export const getCurrentUserId = () => (state) => state.users.auth.userId;
 export const getAuthErrors = () => (state) => state.users.error;
 export const getIsReset = () => (state) => state.users.isReset;

@@ -1,16 +1,21 @@
 import React from "react";
-import Counter from "../counter";
+import Counter from "../common/counter";
 import { useModal } from "../../hooks/useModal";
 import { useBasket } from "../../hooks/useBasket";
-import Loader from "../loader";
-import Comments from "../comments";
+import Loader from "../common/loader";
+import Comments from "../ui/comments";
 import { useDispatch, useSelector } from "react-redux";
 import { getIsLoggedIn } from "../../store/users";
 import { useHistory } from "react-router-dom";
 import { getItemById } from "../../store/items";
-import { addItem, deleteItem, getFavoritesById } from "../../store/favorites";
+import {
+  addItemFavorites,
+  deleteItem,
+  getFavoritesById
+} from "../../store/favorites";
 import { nanoid } from "@reduxjs/toolkit";
 import { Link } from "react-router-dom";
+import { addItem } from "../../store/basket";
 
 const FlowerPage = ({ itemId }) => {
   const item = useSelector(getItemById(itemId));
@@ -42,7 +47,7 @@ const FlowerPage = ({ itemId }) => {
       if (!loggedIn) {
         return history.push(`/login`);
       }
-      dispatch(addItem({ itemId }));
+      dispatch(addItemFavorites({ itemId }));
     };
 
     const handleDelete = (itemId) => {

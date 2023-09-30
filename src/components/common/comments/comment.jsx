@@ -1,6 +1,6 @@
 import React from "react";
-import { displayDate } from "../../utils/displayDate";
-import { getCurrentUserId, getUserById } from "../../store/users";
+import { displayDate } from "../../../utils/displayDate";
+import { getCurrentUserId, getUserById } from "../../../store/users";
 import { useSelector } from "react-redux";
 
 const Comment = ({

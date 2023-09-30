@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateUserData } from "../store/users";
-import { validator } from "../utils/validator";
-import TextFieldExtra from "./form/textFieldExtra";
+import { updateUserData } from "../../store/users";
+import { validator } from "../../utils/validator";
+import TextFieldExtra from "../common/form/textFieldExtra";
 
 const EditAccount = ({ currentUser, onToggleMode }) => {
   const [data, setData] = useState({});

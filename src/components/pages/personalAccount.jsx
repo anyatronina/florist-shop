@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import { getCurrentUserData, getUsersLoadingStatus } from "../../store/users";
-import EditAccount from "../editAccount";
-import Loader from "../loader";
+import EditAccount from "../pages/editAccount";
+import Loader from "../common/loader";
 
 const PersonalAccount = () => {
   const { userId } = useParams();

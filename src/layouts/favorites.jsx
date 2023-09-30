@@ -1,13 +1,12 @@
 import React from "react";
-import ItemBasket from "../components/itemBasket";
-import Loader from "../components/loader";
+import Loader from "../components/common/loader";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteItem,
   getFavoritesList,
   getFavoritesLoadingStatus
 } from "../store/favorites";
-import ItemFavorites from "../components/itemFavorites";
+import ItemFavorites from "../components/ui/itemFavorites";
 
 const Favorites = () => {
   const dispatch = useDispatch();

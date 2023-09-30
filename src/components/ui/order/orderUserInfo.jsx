@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { getUserById } from "../store/users";
-import { displayDate } from "../utils/displayDate";
+import { getUserById } from "../../../store/users";
+import { displayDate } from "../../../utils/displayDate";
 
 const OrderUserInfo = ({ userId, createdAt }) => {
   const user = useSelector(getUserById(userId));

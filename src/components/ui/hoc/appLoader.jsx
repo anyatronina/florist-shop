@@ -1,19 +1,19 @@
 import { useDispatch, useSelector } from "react-redux";
 import {
   getIsLoggedIn,
-  // getUsersLoadingStatus,
+  getUsersLoadingStatus,
   loadUsersList
-} from "../../store/users";
+} from "../../../store/users";
 import { useEffect } from "react";
-import { loadItemsList } from "../../store/items";
-import { loadBasketList } from "../../store/basket";
-import { loadFavoritesList } from "../../store/favorites";
-// import Loader from "../loader";
+import { loadItemsList } from "../../../store/items";
+import { loadBasketList } from "../../../store/basket";
+import { loadFavoritesList } from "../../../store/favorites";
+import Loader from "../../common/loader";
 
 const AppLoader = ({ children }) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(getIsLoggedIn());
-  // const usersStatusLoading = useSelector(getUsersLoadingStatus());
+  const usersStatusLoading = useSelector(getUsersLoadingStatus());
 
   useEffect(() => {
     dispatch(loadItemsList());
@@ -25,7 +25,7 @@ const AppLoader = ({ children }) => {
     }
   }, [isLoggedIn]);
 
-  // if (usersStatusLoading && !isReset && !isResetComplete) return <Loader />;
+  if (usersStatusLoading) return <Loader />;
   return children;
 };
 

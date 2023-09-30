@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import ItemBasket from "../components/itemBasket";
-import Loader from "../components/loader";
+import ItemBasket from "../components/ui/itemBasket";
+import Loader from "../components/common/loader";
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearBasket,

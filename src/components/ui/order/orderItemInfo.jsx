@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { getItemById } from "../store/items";
+import { getItemById } from "../../../store/items";
 
 const OrderItemInfo = ({ itemId, amount }) => {
   const item = useSelector(getItemById(itemId));
@@ -8,7 +8,7 @@ const OrderItemInfo = ({ itemId, amount }) => {
     <div className="product-item">
       <img
         className="product-image"
-        src={require(`../img/flowers2/${item.img}.jpg`)}
+        src={require(`../../../img/flowers2/${item.img}.jpg`)}
         alt={item.name}
       />
 
